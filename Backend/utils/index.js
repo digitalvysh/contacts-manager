@@ -21,10 +21,23 @@ async function comparePassword(password, hash) {
 }
 
 function genToken(isuserExists) {
-    const token = jwt.sign({
-        email: isuserExists.email,
-    }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({data: {
+        email : isuserExists.email,
+        id    : isuserExists._id 
+    }}, SECRET, { expiresIn: '1h' });
     return token;
 }
 
-module.exports = {genHash,comparePassword,genToken}
+function verifyToken(token) {
+    return new Promise((res, rej) => {
+        jwt.verify(token, SECRET, function(err, decoded) {
+            if (err) {
+                rej(err);
+            } else {
+                res(decoded);
+            }
+        });
+    })
+}
+
+module.exports = {genHash,comparePassword,genToken,verifyToken}
