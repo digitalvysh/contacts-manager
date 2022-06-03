@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 const mongoose = require("mongoose")
 const user= require("./model/user")
 const contact = require("./model/contact")
 const bodyParser = require("body-parser");
-const userRoutes = require("./routes/userRoutes")
+const userRoutes = require("./routes/userRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 const url = "mongodb://127.0.0.1:27017/contacts-manager";
 async function connectDB() {
@@ -26,6 +28,7 @@ async function main() {
     })
 
     app.use('/',userRoutes);
+    app.use('/',contactRoutes);
 
     app.listen(7000, function () {
         console.log("server start at http://localhost:7000")

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const user = require("../model/user");
-const {genHash, comparePassword,genToken} = require("../utils")
+const {genHash, comparePassword,genToken,verifyToken} = require("../utils")
 
 router.get("/api/v1/user", async function(req,res){
     try{
@@ -30,6 +30,11 @@ router.post('/api/v1/user/signup', async function(req, res) {
         const isuserExists = await user.findOne({ email });
         if (isuserExists) {
             const error = new Error('User Already Registered!');
+            error.statusCode = 400;
+            throw error;
+        }
+        if (!confirmpassword){
+            const error = new Error("comfirm the password");
             error.statusCode = 400;
             throw error;
         }
@@ -72,6 +77,34 @@ router.post('/api/v1/user/login', async function(req, res) {
     } catch (e) {
         console.log(e);
         res.status(e.statusCode || 500).send({
+            error: e.message
+        })
+    }
+})
+
+router.use('/api/v1/*', async function(req, res, next) {
+    // console.log("I am in the middleware", req.headers);
+    try {
+        const authHeader = req.headers['authorization'];
+        console.log(req)
+        if (!authHeader) {
+            return res.status(401).send({
+                error: 'User not authorized!'
+            });
+        }
+        else {
+            const token = authHeader.split('Bearer ')[1];
+            const decoded = await verifyToken(token);
+            // req.userEmail = decoded.email;
+            req.user = decoded.data.id         
+            console.log(decoded)
+            console.log("req : ",req)
+            console.log(req.user)
+        }
+        next();
+    } catch(e) {
+        console.log(e);
+        return res.status(400).send({
             error: e.message
         })
     }

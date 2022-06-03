@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const ContactSchema = mongoose.Schema({
   name: {
     type: String,
@@ -28,5 +29,10 @@ const ContactSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  postedby : {
+    type : mongoose.Schema.Types.ObjectId,
+    ref : "User",
+    required : true
+  }
 });
 module.exports = mongoose.model("Contact", ContactSchema);
