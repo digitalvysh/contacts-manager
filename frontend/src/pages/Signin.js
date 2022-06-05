@@ -1,9 +1,9 @@
 import "./signin.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateValue } from "../content/StateProvider";
-import { actionType } from "../content/reducer";
-import Alert from "../components/Alert";
+// import { actionType } from "../content/reducer";
+// import Alert from "../components/Alert";
 import dot from "../utils/dot.svg";
 import bigCircleL from "../utils/bigCircleL.svg";
 import bigCircleR from "../utils/bigCircleR.svg";
@@ -12,37 +12,40 @@ import { motion } from "framer-motion";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const [msg, setMsg] = useState(null);
+  // const [msg, setMsg] = useState(null);
   const passRef = useRef();
   // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
 
   const handleSubmit = async (e) => {
+    console.log(e)
     e.preventDefault();
     const data = {
       email: e.target.elements.log_email.value,
       password: e.target.elements.log_password.value,
     };
+    console.log(data)
 
-    const proRes = await fetch(process.env.REACT_APP_API + "/user/signin", {
+    const proRes = await fetch(process.env.REACT_APP_API+ "/api/v1/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    const response = await proRes.json();
-    if (response.status === "sucess") {
-      dispatch({ type: actionType.ADD_USER, payload: { user: response.user } });
-      navigate("/contact");
-    } else {
-      setMsg(response.message);
-      setTimeout(() => {
-        setMsg(null);
-      }, 2500);
+    const res = await proRes.json();
+    console.log(res.status)
+    console.log(res)
+    console.log(res.token)
+    if (res.status === 400 || !data){
+      window.alert("Invalid Credentials")
+    }else{
+      window.alert("signin successfull")
+      navigate("/contact")
     }
   };
 
+
   const refreshUser = async () => {
-    const jsonData = await fetch(process.env.REACT_APP_API + "/user/signin", {
+    const jsonData = await fetch("", {
       method: "GET",
       headers: {
         authorization: state.user.token,
@@ -75,9 +78,9 @@ const Signin = () => {
       <div className="mainLogIn">
         <img src={dot} alt="dotLeft" className="dotLeft" />
 
-        {msg ? <Alert msg={msg} /> : ""}
+        {/* {msg ? <Alert msg={msg} /> : ""} */}
 
-        <form action="" className="signForm" onSubmit={handleSubmit}>
+        <form method="POST" className="signForm" onSubmit={handleSubmit}>
           <div className="logo">Logo</div>
 
           <div className="detail">

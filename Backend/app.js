@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+var cors = require("cors");
 require("dotenv").config();
+
 const mongoose = require("mongoose")
 const user= require("./model/user")
 const contact = require("./model/contact")
@@ -18,6 +20,7 @@ async function connectDB() {
     }
 }
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -26,7 +29,8 @@ async function main() {
     app.get("/", function (req, res) {
         res.send("Contact manager")
     })
-
+   
+    
     app.use('/',userRoutes);
     app.use('/',contactRoutes);
 

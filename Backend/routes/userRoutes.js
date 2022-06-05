@@ -29,22 +29,18 @@ router.post('/api/v1/user/signup', async function(req, res) {
         console.log(req.body)
         const isuserExists = await user.findOne({ email });
         if (isuserExists) {
-            const error = new Error('User Already Registered!');
-            error.statusCode = 400;
-            throw error;
+            return res.status(400).send({error:"User already registered!"})
         }
         if (!confirmpassword){
-            const error = new Error("comfirm the password");
-            error.statusCode = 400;
-            throw error;
+            return res.status(400).send({error:"confirm the password!"})
         }
-        const passwordHash = await genHash(password);
-        await user.create({ email , password:passwordHash , confirmpassword:passwordHash });
         if(confirmpassword!=password){
             error = new Error("Password did not match");
             throw error;
         }
-        res.send({ message: 'Signup Successful' });
+        const passwordHash = await genHash(password);
+        await user.create({ email , password:passwordHash , confirmpassword:passwordHash });
+        res.status(200).send({ message: 'Signup Successful' });
     } catch(e) {
         console.log(e);
         res.status(e.statusCode || 500).send({
@@ -61,9 +57,10 @@ router.post('/api/v1/user/login', async function(req, res) {
         console.log(password)
         const isuserExists = await user.findOne({ email });
         if (!isuserExists) {
-            const error = new Error('User Not Found!');
-            error.statusCode = 404;
-            throw error;
+            // const error = new Error('User Not Found!');
+            // error.statusCode = 404;
+            // throw error;
+            return res.status(400).send({error:"User not found!"})
         }
         const match = await comparePassword(password,isuserExists.password)
         console.log(match)
@@ -73,7 +70,7 @@ router.post('/api/v1/user/login', async function(req, res) {
             throw error;
         }
         console.log(isuserExists)
-        res.send({ token: genToken(isuserExists) });
+        res.send({token : genToken(isuserExists)});
     } catch (e) {
         console.log(e);
         res.status(e.statusCode || 500).send({
