@@ -29,6 +29,7 @@ router.post('/api/v1/user/signup', async function(req, res) {
         console.log(req.body)
         const isuserExists = await user.findOne({ email });
         if (isuserExists) {
+            console.log("isuserExists")
             return res.status(400).send({error:"User already registered!"})
         }
         if (!confirmpassword){

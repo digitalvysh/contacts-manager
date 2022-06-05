@@ -31,13 +31,18 @@ const Signin = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+    console.log(proRes.status)
+    console.log(typeof(proRes.status))
     const res = await proRes.json();
-    console.log(res.status)
     console.log(res)
+    console.log(typeof(res))
     console.log(res.token)
     if (res.status === 400 || !data){
-      window.alert("Invalid Credentials")
-    }else{
+      window.alert("User not found")
+    }if(res.status === 404){
+      window.alert("Invalid password")
+    }
+    if(res.status===200){
       window.alert("signin successfull")
       navigate("/contact")
     }

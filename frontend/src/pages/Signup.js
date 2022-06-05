@@ -29,12 +29,14 @@ const Signup = () => {
       confirmpassword:e.target.elements.c_reg_password.value,
     };
     console.log(data)
-    const proRes = await fetch(process.env.REACT_APP_API + "/api/v1/user/signup", {
+    var res = await fetch(process.env.REACT_APP_API + "/api/v1/user/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    const res =await proRes.json();
+    console.log("print result")
+    // console.log(strinres))
+    // res = await res.json();
     console.log(res);
     console.log(res.status)
     if (res.status === 400 || !data){
