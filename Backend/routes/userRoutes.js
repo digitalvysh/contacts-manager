@@ -7,7 +7,7 @@ router.get("/api/v1/user", async function(req,res){
     try{
         const users = await user.find();
         res.send(users)
-    }catch(e){
+    }  catch(e){
         console.log(e)
         res.status(500).send("internal server error")
     }
@@ -84,6 +84,7 @@ router.use('/api/v1/*', async function(req, res, next) {
     // console.log("I am in the middleware", req.headers);
     try {
         const authHeader = req.headers['authorization'];
+        console.log(req.headers)
         console.log(req)
         if (!authHeader) {
             return res.status(401).send({

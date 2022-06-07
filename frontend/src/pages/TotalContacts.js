@@ -1,11 +1,18 @@
 import React from 'react'
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import Contactlist from '../components/Contactlist';
+import "./totalcontacts.css"
+
 
 function TotalContacts() {
   return (
-    <div>
-      <h1>Total contacts</h1>
+    <div className='Totalcontacts'>
+        <Sidebar/>
+        <Header/>
+        <Contactlist/>
     </div>
   )
 }
 
-export default TotalContacts
+export default TotalContacts;

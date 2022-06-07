@@ -6,9 +6,9 @@ const router = express.Router();
 router.get('/api/v1/contacts',async function(req,res){
     try{
         const contacts = await contact.find();
-        res.send({
+        res.status(200).send(
             contacts
-        })
+        )
     }catch(e){
         console.log(e);
         res.status(500).send({
@@ -26,9 +26,9 @@ router.post('/api/v1/contacts',async function(req,res){
         // }
         // 
         try{
-            const addcontacts = await contact.create({...req.body, postedby:req.user});
+            const addcontacts = await contact.create({...req.body});
             console.log(addcontacts);
-            res.send(addcontacts);
+            res.status(200).send(addcontacts);
         }
     catch(e){
         console.log(e)
@@ -37,7 +37,7 @@ router.post('/api/v1/contacts',async function(req,res){
         })
     }
 })
-
+// , postedby:req.user
 router.delete('/api/v1/contacts/:id', async function(req,res){
     try{
         await contact.deleteOne({_id: mongoose.Types.ObjectId(req.params.id)});

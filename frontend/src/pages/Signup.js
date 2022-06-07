@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-// import Alert from "../components/Alert";
 import dot from "../utils/dot.svg";
 import bigCircleL from "../utils/bigCircleL.svg";
 import bigCircleR from "../utils/bigCircleR.svg";
@@ -7,8 +6,6 @@ import eye from "../utils/eye.svg";
 import { motion } from "framer-motion";
 
 const Signup = () => {
-  // const navigate = useNavigate();
-  // const [msg, setMsg] = useState(null);
   const passRef = useRef();
   const [wrongPass, setWrongPass] = useState(false);
 
@@ -59,7 +56,6 @@ const Signup = () => {
     <section className="loginContainer">
       <img src={bigCircleL} alt="bigCircle" className="bigCircle left" />
       <div className="mainLogIn">
-        {/* {msg ? <Alert msg={msg} /> : ""} */}
         {wrongPass ? <div className="alert">Password does't match</div> : ""}
         <img src={dot} alt="dotLeft" className="dotLeft" />
 

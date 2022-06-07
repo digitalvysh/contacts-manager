@@ -32,7 +32,7 @@ const ContactSchema = mongoose.Schema({
   postedby : {
     type : mongoose.Schema.Types.ObjectId,
     ref : "User",
-    required : true
+    // required : true
   }
 });
 module.exports = mongoose.model("Contact", ContactSchema);

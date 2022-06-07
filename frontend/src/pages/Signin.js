@@ -2,22 +2,16 @@ import "./signin.css";
 import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateValue } from "../content/StateProvider";
-// import { actionType } from "../content/reducer";
-// import Alert from "../components/Alert";
 import dot from "../utils/dot.svg";
 import bigCircleL from "../utils/bigCircleL.svg";
 import bigCircleR from "../utils/bigCircleR.svg";
 import eye from "../utils/eye.svg";
 import { motion } from "framer-motion";
-
 const Signin = () => {
   const navigate = useNavigate();
-  // const [msg, setMsg] = useState(null);
   const passRef = useRef();
-  // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
-
-  const handleSubmit = async (e) => {
+  const SubmitLogin = async (e) => {
     console.log(e)
     e.preventDefault();
     const data = {
@@ -25,7 +19,6 @@ const Signin = () => {
       password: e.target.elements.log_password.value,
     };
     console.log(data)
-
     const proRes = await fetch(process.env.REACT_APP_API+ "/api/v1/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,37 +30,31 @@ const Signin = () => {
     console.log(res)
     console.log(typeof(res))
     console.log(res.token)
-    if (res.status === 400 || !data){
+    if (proRes.status === 400 || !data){
       window.alert("User not found")
-    }if(res.status === 404){
+    }if(proRes.status === 404){
       window.alert("Invalid password")
     }
-    if(res.status===200){
+    if(proRes.status===200){
       window.alert("signin successfull")
       navigate("/contact")
     }
   };
-
-
-  const refreshUser = async () => {
+  const refreshUser  = async () => {
     const jsonData = await fetch("", {
       method: "GET",
       headers: {
         authorization: state.user.token,
       },
     });
-
     const data = await jsonData.json();
     if (data.status === "sucess") {
       navigate("/contact");
     }
   };
-
   useEffect(() => {
-    refreshUser();
-    // eslint-disable-next-line
+    refreshUser ();
   }, []);
-
   function showPassword(e) {
     var x = passRef.current;
     if (x.type === "password") {
@@ -76,18 +63,13 @@ const Signin = () => {
       x.type = "password";
     }
   }
-
   return (
     <section className="loginContainer">
       <img src={bigCircleL} alt="bigCircle" className="bigCircle left" />
       <div className="mainLogIn">
         <img src={dot} alt="dotLeft" className="dotLeft" />
-
-        {/* {msg ? <Alert msg={msg} /> : ""} */}
-
-        <form method="POST" className="signForm" onSubmit={handleSubmit}>
+        <form method="POST" className="signForm" onSubmit={SubmitLogin}>
           <div className="logo">Logo</div>
-
           <div className="detail">
             Enter your credentials to access your account
           </div>
@@ -124,12 +106,14 @@ const Signin = () => {
             Sign up
           </Link>
         </form>
-
         <img src={dot} alt="dotRight" className="dotRight" />
       </div>
       <img src={bigCircleR} alt="bigCircle" className="bigCircle right" />
     </section>
   );
 };
-
 export default Signin;
+
+
+
+
