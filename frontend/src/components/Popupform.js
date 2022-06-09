@@ -30,7 +30,7 @@ const Popupform = () => {
            <div className='popup'>
             <Modal size="lg" isOpen={modal} toggle={()=>setmodal(!modal)}>
                 <ModalHeader toggle={()=>setmodal(!modal)}>
-                    popup
+                    Fill the details 
                 </ModalHeader>
                 <ModalBody>
                     <form onSubmit={onSubmits}>
@@ -62,7 +62,7 @@ const Popupform = () => {
                 </ModalBody>
             </Modal>
             </div>
-            <button className='btn mt-3' onClick={()=>setmodal(true) }>Add Contact</button>
+            <button className='btn-pop' onClick={()=>setmodal(true) }>Add Contact</button>
     </>
   )
 }

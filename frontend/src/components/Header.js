@@ -13,8 +13,8 @@ const Header = () => {
   return (
     <div className="header-bar">
       <ul>
-          <li className="text">Total Contacts</li>
-          <li>
+        <li className="text">Total Contacts</li>
+          <li className="search-li">
           <input
             type="search"
             placeholder="Search email address"
@@ -33,7 +33,7 @@ const Header = () => {
           </div>
         </motion.li>
       </ul>
-     
+     <hr />
     </div>
   )
 }

@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import selectDate from "../utils/selectDate.svg";
-import Popupform from './Popupform';
-import './contactlist.css'
+import './contactlist.css';
+import deleteimg from "../utils/delete.svg";
+import importbtn from "../utils/import.svg";
+import exportimg from "../utils/export.svg";
+import singleDelete from "../utils/singleDelete.png"
 
 function Contactlist() {
     const [contacts,setcontacts] = useState([]);
@@ -35,12 +38,21 @@ function Contactlist() {
          <div className="mainpage">
              <section>
              <div className="filter">
-              <img src={selectDate} alt="selectDate" /></div>
-              <Popupform />
-              <button className='btn mt-3' onClick={importlist}>Import</button>
+            <div>
+                   <img src={selectDate} alt="selectDate" />
+            </div>
+            <div>
+              <img src={deleteimg} alt="deletebtn" />
+              <button className='importbtn' onClick={importlist}>  
+                  <img src={importbtn} alt="import" />
+              </button>
+              <img src={exportimg} alt="export" />
+            </div>
+            </div>
              </section>
+             <div className='table-div'>
              <table class="content-table">
-          <thead>
+          <thead className='table-head'>
               <th>Name</th>
               <th>Designation</th>
               <th>Company</th>
@@ -50,7 +62,7 @@ function Contactlist() {
               <th>Country</th>
               <th>Action</th>
           </thead>
-          <tbody>
+          <tbody className='table-body'>
               {contacts.map((contact)=>(
                   <tr key={contact._id}>
                       {/* {Object.values(contact).map((val)=>(
@@ -63,11 +75,12 @@ function Contactlist() {
                       <td>{contact.email}</td>
                       <td>{contact.phonenumber}</td>
                       <td>{contact.country}</td>
-                      <td><button onClick={()=>deletecontact(contact._id)}> 🗳️</button></td>
+                      <td><button className='deletebtn' onClick={()=>deletecontact(contact._id)}><img src={singleDelete} alt="delete"></img> </button></td>
                   </tr>
               ))}
           </tbody>
       </table>
+      </div>
     </div>
   )
 }

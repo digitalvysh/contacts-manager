@@ -8,12 +8,11 @@ li{
 }
 
 .header-bar{
-    width: 75%;
+    width: 86.5%;
     position: absolute;
-    left: 300px;
-    top:5px;
+    left: 201px;
+    top: 5px;
     height: 100px;
-    background-color: antiquewhite;
 }
 
 ul{
@@ -35,4 +34,15 @@ ul{
     font-weight: bold;
     margin-top: 20px;
     margin-left: 20px;
+    height: 20px;
+}
+
+.search-li{
+    position: relative;
+    left: 300px;
+    height: 20px;
+}
+
+.search-li>input{
+    background-color: #f2f2f2;
 }
