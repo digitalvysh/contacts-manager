@@ -71,7 +71,14 @@ router.post('/api/v1/user/login', async function(req, res) {
             throw error;
         }
         console.log(isuserExists)
-        res.send({token : genToken(isuserExists)});
+        const gettoken = {token : genToken(isuserExists)}
+        // res.cookie("jwtoken", gettoken.token ,{
+        //     expires : new Date(Date.now() + 25892000000),
+        //     httpOnly:true 
+        // })  
+        res.status(200).send(gettoken);
+        console.log(gettoken.token)
+        
     } catch (e) {
         console.log(e);
         res.status(e.statusCode || 500).send({

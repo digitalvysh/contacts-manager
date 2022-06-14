@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 var cors = require("cors");
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
 const mongoose = require("mongoose")
 const user= require("./model/user")
@@ -23,6 +24,7 @@ async function connectDB() {
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(cookieParser());
 
 async function main() {
     await connectDB();

@@ -10,6 +10,7 @@ const Popupform = () => {
     const [email,setemail] =useState("")
     const [phonenumber,setphonenumber] =useState("")
     const [country,setcountry] =useState("")
+    // const [test,settest]  = useState()
     const onSubmits = async (e) =>{
         e.preventDefault();
         const formdata = {
@@ -24,6 +25,14 @@ const Popupform = () => {
           console.log("print res")
           console.log(res);
           console.log(res.status)
+        //   settest(res.status)
+        //   console.log("test",test)
+        const result = await res.json()
+        console.log(result)
+        console.log(result.name)
+        //   settest(result.name)
+        //   console.log("test",test)
+
     }
   return (
       <>

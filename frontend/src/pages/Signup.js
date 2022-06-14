@@ -36,6 +36,12 @@ const Signup = () => {
     // res = await res.json();
     console.log(res);
     console.log(res.status)
+    const result = await res.json()
+    console.log(result)
+    console.log(result.error)
+    if(result.error === "User already registered!"){
+      window.alert("User already registered!")
+    }
     if (res.status === 400 || !data){
       window.alert("Invalid Credentials")
     }else{

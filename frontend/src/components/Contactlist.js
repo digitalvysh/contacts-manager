@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import selectDate from "../utils/selectDate.svg";
 import './contactlist.css';
 import deleteimg from "../utils/delete.svg";
-import importbtn from "../utils/import.svg";
+// import importbtn from "../utils/import.svg";
 import exportimg from "../utils/export.svg";
 import singleDelete from "../utils/singleDelete.png"
+import Upload from './Upload';
 
 function Contactlist() {
     const [contacts,setcontacts] = useState([]);
@@ -15,6 +16,8 @@ function Contactlist() {
             headers: { "Content-Type": "application/json" },
         })
         console.log(res.status)
+        console.log(res)
+        console.log(typeof(res))
         const data = await res.json();
         console.log(data)
         setcontacts(data)
@@ -33,7 +36,7 @@ function Contactlist() {
         const result = await update.json();
         setcontacts(result)
     }
-    
+    console.log("test state", contacts)
   return (
          <div className="mainpage">
              <section>
@@ -43,9 +46,10 @@ function Contactlist() {
             </div>
             <div>
               <img src={deleteimg} alt="deletebtn" />
-              <button className='importbtn' onClick={importlist}>  
+              {/* <button className='importbtn' onClick={importlist}>  
                   <img src={importbtn} alt="import" />
-              </button>
+              </button> */}
+              <Upload onClick={importlist}/>
               <img src={exportimg} alt="export" />
             </div>
             </div>

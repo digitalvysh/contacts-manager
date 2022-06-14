@@ -109,3 +109,7 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.import-component{
+    display: inline;
+}
