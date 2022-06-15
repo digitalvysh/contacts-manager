@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const deletetoken = () =>{
     window.localStorage.removeItem("token")
+    window.localStorage.removeItem("email")
   }
   return (
     <div className='asidebar'>

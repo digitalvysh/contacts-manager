@@ -23,6 +23,7 @@ const Signin = ({signintoken}) => {
         password: e.target.elements.log_password.value,
       };
       console.log(data)
+      console.log(data.email)
       const proRes = await fetch(process.env.REACT_APP_API+ "/api/v1/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,6 +48,8 @@ const Signin = ({signintoken}) => {
         const res =await proRes.json()
         console.log(res)
         console.log(res.token)
+        console.log("username is", res.useremail)
+        window.localStorage.setItem('email',res.useremail)
         window.localStorage.setItem('token',res.token )
         window.alert("signin successfull")
         navigate("/contact")

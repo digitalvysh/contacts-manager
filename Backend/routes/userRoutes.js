@@ -71,7 +71,8 @@ router.post('/api/v1/user/login', async function(req, res) {
             throw error;
         }
         console.log(isuserExists)
-        const gettoken = {token : genToken(isuserExists)}
+        console.log(isuserExists.email)
+        const gettoken = {token : genToken(isuserExists),useremail : isuserExists.email}
         // res.cookie("jwtoken", gettoken.token ,{
         //     expires : new Date(Date.now() + 25892000000),
         //     httpOnly:true 
