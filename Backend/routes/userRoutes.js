@@ -87,33 +87,35 @@ router.post('/api/v1/user/login', async function(req, res) {
     }
 })
 
-// router.use('/api/v1/*', async function(req, res, next) {
-//     // console.log("I am in the middleware", req.headers);
-//     try {
-//         const authHeader = req.headers['authorization'];
-//         console.log(req.headers)
-//         console.log(req)
-//         if (!authHeader) {
-//             return res.status(401).send({
-//                 error: 'User not authorized!'
-//             });
-//         }
-//         else {
-//             const token = authHeader.split('Bearer ')[1];
-//             const decoded = await verifyToken(token);
-//             // req.userEmail = decoded.email;
-//             req.user = decoded.data.id         
-//             console.log(decoded)
-//             console.log("req : ",req)
-//             console.log(req.user)
-//         }
-//         next();
-//     } catch(e) {
-//         console.log(e);
-//         return res.status(400).send({
-//             error: e.message
-//         })
-//     }
-// })
+router.use('/api/v1/*', async function(req, res, next) {
+    // console.log("I am in the middleware", req.headers);
+    try {
+        const authHeader = req.headers['authorization'];
+        console.log(req.headers)
+        console.log(req)
+        if (!authHeader) {
+            console.log("user is not authorized")
+            return res.status(401).send({
+                error: 'User not authorized!'
+            });
+        }
+        else {
+            const token = authHeader.split('Bearer ')[1];
+            const decoded = await verifyToken(token);
+            console.log(token)
+            // req.userEmail = decoded.email;
+            req.user = decoded.data.id         
+            console.log(decoded)
+            console.log("req is: ",req)
+            console.log("id is:",req.user)
+        }
+        next();
+    } catch(e) {
+        console.log(e);
+        return res.status(400).send({
+            error: e.message
+        })
+    }
+})
 
 module.exports = router;

@@ -17,6 +17,7 @@
     border: none;
     position: relative;
     top: 580px;
+    left: 40px;
 }
 
 .logout:hover{

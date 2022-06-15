@@ -29,12 +29,16 @@ function genToken(isuserExists) {
 }
 
 function verifyToken(token) {
+    console.log("token:", token)
+    console.log("secret: ", SECRET)
     return new Promise((res, rej) => {
         jwt.verify(token, SECRET, function(err, decoded) {
             if (err) {
                 rej(err);
+                console.log("error is: " ,err)
             } else {
                 res(decoded);
+                console.log("decoded is", decoded)
             }
         });
     })

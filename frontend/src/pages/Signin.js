@@ -7,7 +7,7 @@ import bigCircleL from "../utils/bigCircleL.svg";
 import bigCircleR from "../utils/bigCircleR.svg";
 import eye from "../utils/eye.svg";
 import { motion } from "framer-motion";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const Signin = ({signintoken}) => {
   // const [token,settoken] = useState()
@@ -31,12 +31,11 @@ const Signin = ({signintoken}) => {
       console.log(proRes)
       console.log(proRes.status)
     
-      const res =await proRes.json()
-      console.log(res)
-      console.log(res.token)
-      const accessToken = res.token
-      console.log(accessToken) 
-      Cookies.set("access", accessToken)
+     
+
+      // const accessToken = res.token
+      // console.log(accessToken) 
+      // Cookies.set("access", accessToken)
      
       
       if (proRes.status === 400 || !data){
@@ -45,6 +44,10 @@ const Signin = ({signintoken}) => {
         window.alert("Invalid password")
       }
       if(proRes.status===200){
+        const res =await proRes.json()
+        console.log(res)
+        console.log(res.token)
+        window.localStorage.setItem('token',res.token )
         window.alert("signin successfull")
         navigate("/contact")
       }

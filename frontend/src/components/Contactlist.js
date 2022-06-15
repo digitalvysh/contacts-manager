@@ -9,11 +9,14 @@ import Upload from './Upload';
 
 function Contactlist() {
     const [contacts,setcontacts] = useState([]);
-   
+    console.log("token for sending to backend" , localStorage.getItem("token"));
     const importlist = async() =>{
         const res = await fetch(process.env.REACT_APP_API + "/api/v1/contacts",{
             method:"GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                 "Content-Type": "application/json" ,
+                Authorization : "Bearer " + localStorage.getItem("token"),
+            },
         })
         console.log(res.status)
         console.log(res)
@@ -26,12 +29,19 @@ function Contactlist() {
         console.log(contact)
         const res = await fetch(process.env.REACT_APP_API + "/api/v1/contacts/"+contact,{
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                Authorization : "Bearer " + localStorage.getItem("token"),
+             },
         })
         console.log(res.status)
         const update = await fetch(process.env.REACT_APP_API + "/api/v1/contacts",{
             method:"GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                 "Content-Type": "application/json",
+                 Authorization : "Bearer " + localStorage.getItem("token"),
+              },
+
         })
         const result = await update.json();
         setcontacts(result)

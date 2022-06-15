@@ -19,7 +19,10 @@ const Popupform = () => {
         console.log(formdata)
         var res = await fetch(process.env.REACT_APP_API + "/api/v1/contacts", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization : "Bearer " + localStorage.getItem("token")
+             },
             body: JSON.stringify(formdata),
           });
           console.log("print res")
@@ -30,6 +33,9 @@ const Popupform = () => {
         const result = await res.json()
         console.log(result)
         console.log(result.name)
+        if (res.status===200){
+            window.alert("register successful")
+        }
         //   settest(result.name)
         //   console.log("test",test)
 
@@ -66,7 +72,7 @@ const Popupform = () => {
                             <input type="text" name="country" value={country} onChange={(e)=>setcountry(e.target.value)} placeholder='Country' />
                         </Col>
                     </Row>
-                    <button className='btn-form' type='submit'>register</button>
+                    <button className='btn-form'  type='submit' >register</button>
                     </form>
                 </ModalBody>
             </Modal>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStateValue } from "../content/StateProvider";
 import { actionType } from "../content/reducer";
 import user from "../utils/user.svg";
@@ -29,7 +29,7 @@ const Header = () => {
               {state.user.email.split("@")[0][0].toUpperCase() +
                 state.user.email.split("@")[0].slice(1).toLowerCase()}
             </p>
-            <p className="userType">Normal User</p>
+            <p className="userType">normal user</p>
           </div>
         </motion.li>
       </ul>

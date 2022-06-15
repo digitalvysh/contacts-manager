@@ -19,22 +19,29 @@ const Upload =  ({onClick})=> {
                 console.log(csvOutput)
                 console.log(typeof(csvOutput))
                 const array = csvOutput.split(";")
-                const converttoobject = array.map((contact)=>{
-                    return JSON.parse(contact)
+                console.log(array)
+                const converttoobject = array.map((contactobj)=>{
+                    return JSON.parse(contactobj)
                 })
                 console.log(converttoobject)
                 console.log(typeof(converttoobject))
                 console.log(array)
                 console.log(typeof(array))
                     var res = converttoobject.map(async(onecontact)=>{
+                        console.log("onecontact : " , onecontact)
+                        console.log("tostring:" , JSON.stringify(onecontact))
                         var result = await fetch(process.env.REACT_APP_API + "/api/v1/contacts", {
                             method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(onecontact),
+                            headers: { 
+                                "Content-Type": "application/json",
+                                Authorization : "Bearer " + localStorage.getItem("token"),
+                             },
+                             body: JSON.stringify(onecontact),
                           });
                         console.log("print res")
-                        console.log(result)
                         console.log(result.status)
+                        const response = await result.json()
+                        console.log(response)
                     })
             };
 
@@ -56,7 +63,7 @@ const Upload =  ({onClick})=> {
                     IMPORT a CSV file
             </ModalHeader>
             <ModalBody>
-            <form onSubmit={rendercontact}>
+            <form method="POST" onSubmit={rendercontact}>
                 <input
                     type={"file"}
                     id={"csvFileInput"}
@@ -71,7 +78,7 @@ const Upload =  ({onClick})=> {
                 >
                     IMPORT CSV
                 </button>
-                <button type="submit" onClick={onClick}>Done</button>
+                <button type="submit" onClick={onClick}>Get Contacts</button>
             </form>
             </ModalBody>
         </Modal>

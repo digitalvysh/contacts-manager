@@ -3,31 +3,31 @@ const mongoose = require('mongoose');
 const ContactSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   designation: {
     type: String,
-    required: true,
+    // required: true,
   },
   company: {
     type: String,
-    required: true,
+    // required: true,
   },
   industry: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
   },
   phonenumber: {
     type: String,
-    required: true,
+    // required: true,
   },
   country: {
     type: String,
-    required: true,
+    // required: true,
   },
   postedby : {
     type : mongoose.Schema.Types.ObjectId,
