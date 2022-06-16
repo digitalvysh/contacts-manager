@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/userRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
-const url = "mongodb://127.0.0.1:27017/contacts-manager";
+const url = "mongodb+srv://Shehbaz_Waasi:ShehbazDB20@cluster0.e6i2kdw.mongodb.net/Contacts-manager?retryWrites=true&w=majority";
 async function connectDB() {
     try {
         await mongoose.connect(url);
@@ -36,7 +36,7 @@ async function main() {
     app.use('/',userRoutes);
     app.use('/',contactRoutes);
 
-    app.listen(7000, function () {
+    app.listen(process.env.PORT||7000, function () {
         console.log("server start at http://localhost:7000")
     });
 }
